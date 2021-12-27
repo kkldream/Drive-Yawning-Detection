@@ -3,7 +3,7 @@ import csv
 import utils
 from face_mesh import FaceMesh
 
-file_name = '1-FemaleNoGlasses-Yawning'
+file_name = '20-MaleGlasses-Talking&yawning'
 marker_path = f'dataset/markers/{file_name}.csv'
 video_path = f'dataset/YawDD/train/{file_name}.avi'
 
@@ -49,7 +49,7 @@ def read_csv(file_path):
 
 def draw_msg(image, str_arr):
 	for i, s in enumerate(str_arr):
-		cv2.putText(image, s, (10, 30 + 30 * i), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+		cv2.putText(image, s, (10, 30 + 30 * i), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 	return image
 
 def calc_mouth_ear(landmarks):

@@ -31,7 +31,7 @@ def main():
 
 def draw_msg(image, str_arr):
 	for i, s in enumerate(str_arr):
-		cv2.putText(image, s, (10, 30 + 30 * i), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2)
+		cv2.putText(image, s, (10, 30 + 30 * i), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 	return image
 
 def calc_mouth_ear(landmarks):
