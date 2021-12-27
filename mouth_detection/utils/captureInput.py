@@ -5,7 +5,7 @@ cap = CaptureInput(0, 640, 480, 30)
 import cv2
 
 class CaptureInput(cv2.VideoCapture):
-    flip = 1
+    flip = -9
     isVideo = False
     
     def __init__(self, var, width=640, height=480, fps=30, info=True) -> None:
@@ -35,7 +35,8 @@ class CaptureInput(cv2.VideoCapture):
         ret, frame = super().read()
         if self.isVideo:
             frame = cv2.resize(frame, self.shape)
-        frame = cv2.flip(frame, self.flip)
+        if self.flip != -9:
+            frame = cv2.flip(frame, self.flip)
         return ret, frame
 
     def setFlip(self, var):
