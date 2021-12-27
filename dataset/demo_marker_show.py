@@ -3,7 +3,7 @@ import csv
 
 file_name = '1-FemaleNoGlasses-Yawning'
 marker_path = f'dataset/markers/{file_name}.csv'
-video_path = f'dataset/YawDD dataset/Mirror/Female_mirror/{file_name}.avi'
+video_path = f'dataset/YawDD/train/{file_name}.avi'
 
 def main():
     data = read_csv(marker_path)

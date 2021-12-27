@@ -1,22 +1,16 @@
 import cv2
-import csv
 import utils
 from face_mesh import FaceMesh
 
-file_name = '1-FemaleNoGlasses-Yawning'
-marker_path = f'dataset/markers/{file_name}.csv'
-video_path = f'dataset/YawDD dataset/Mirror/Female_mirror/{file_name}.avi'
-
 def main():
 	''' CaptureInput '''
-	cap = utils.CaptureInput(video_path)
+	cap = utils.CaptureInput(0, 640, 480, 10)
+	cap.setFlip = True
 	''' Create object '''
 	face_mesh = FaceMesh(1, 0.7, 0.7)
 	cvFpsCalc = utils.CvFpsCalc(buffer_len=10)
-	data = read_csv(marker_path)
-	frame_times = 0
 	''' Start Loop'''
-	while cap.isOpened():
+	while True:
 		display_fps = cvFpsCalc.get()
 		ret, frame = cap.read()
 		face_landmarks = face_mesh(frame)
@@ -27,25 +21,13 @@ def main():
 		''' display '''
 		frame = draw_msg(frame.copy(), (
 			f'FPS: {display_fps:.2f}',
-			f'Sec: {frame_times / 30:.2f}',
-			f'Frame: {frame_times}',
-			f'Mouth Ear: {mouth_ear:.2f}',
-			f'Level: {data[frame_times]}'
+			f'Mouth Ear: {mouth_ear:.2f}'
 		))
 		cv2.imshow('frame', frame)
-		frame_times += 1
 		if cv2.waitKey(1) == 27: # ESC
 			break
 	cap.release()
 	cv2.destroyAllWindows()
-
-def read_csv(file_path):
-    data = []
-    with open(file_path, newline='') as csvfile:
-        rows = list(csv.reader(csvfile))
-        for row in rows[1:]:
-            data.append(row[0])
-    return data
 
 def draw_msg(image, str_arr):
 	for i, s in enumerate(str_arr):
